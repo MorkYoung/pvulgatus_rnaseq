@@ -1,0 +1,8 @@
+organism: Phocaeicola vulgatus CL09T03C04 
+contigs: 12
+bases: 4916502
+CDS: 4025
+rRNA: 21
+repeat_region: 2
+tRNA: 80
+tmRNA: 1

@@ -1,0 +1,7 @@
+organism: Phocaeicola vulgatus ATCC8482 
+contigs: 1
+bases: 5163189
+CDS: 4194
+rRNA: 22
+tRNA: 81
+tmRNA: 1
