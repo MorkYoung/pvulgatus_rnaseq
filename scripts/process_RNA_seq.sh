@@ -27,7 +27,7 @@ OUTDIR="../rna_seq/vulgatus_processed/${SAMPLE_ID}"
 mkdir -p "${OUTDIR}"
 
 source /global/scratch/projects/fc_wolflab/software/miniforge3/etc/profile.d/conda.sh
-conda activate /global/scratch/projects/fc_wolflab/software/miniforge3/envs/mark_biobakery
+conda activate /global/scratch/projects/fc_wolflab/software/miniforge3/envs/mark_rnaseq
 
 ### TrimGalore
 trim_galore --cores 4 --quality 20 --length 20 \
