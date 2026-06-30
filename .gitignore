@@ -6,3 +6,6 @@ __pycache__/
 refs/*
 !refs/*.fasta
 !refs/*map*
+
+# SortMeRNA rRNA databases (download refs/sortmerna/database.tar.gz from SortMeRNA v4.3.4 release)
+refs/sortmerna/
