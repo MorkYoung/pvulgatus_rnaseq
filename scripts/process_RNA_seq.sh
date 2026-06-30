@@ -22,7 +22,7 @@ SAMPLE_GENOME_PREFIX=$(echo "${SAMPLE_ROW}" | cut -d ',' -f 3)
 SAMPLE_STRAIN=$(echo "${SAMPLE_ROW}" | cut -d ',' -f 4)
 
 
-GENOME_FASTA="../ref_genomes/prokka${SAMPLE_GENOME_PREFIX}_genomic.fna"
+GENOME_FASTA="../ref_genomes/${SAMPLE_GENOME_PREFIX}_genomic.fna"
 OUTDIR="../rna_seq/vulgatus_processed/${SAMPLE_ID}"
 mkdir -p "${OUTDIR}"
 
