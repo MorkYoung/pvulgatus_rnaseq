@@ -17,12 +17,13 @@ SAMPLE_FILE="../rna_seq/samples.csv"
 SAMPLE_ROW=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "${SAMPLE_FILE}")
 SAMPLE_ID=$(echo "${SAMPLE_ROW}" | cut -d ',' -f 1)
 SAMPLE_RNA_SEQ_PATH=$(echo "${SAMPLE_ROW}" | cut -d ',' -f 2)
+SAMPLE_RNA_SEQ_PATH='../rna_seq/'$SAMPLE_RNA_SEQ_PATH
 SAMPLE_GENOME_PREFIX=$(echo "${SAMPLE_ROW}" | cut -d ',' -f 3)
 SAMPLE_STRAIN=$(echo "${SAMPLE_ROW}" | cut -d ',' -f 4)
 
 
 GENOME_FASTA="../ref_genomes/prokka${SAMPLE_GENOME_PREFIX}_genomic.fna"
-OUTDIR="vulgatus_processed/${SAMPLE_ID}"
+OUTDIR="../rna_seq/vulgatus_processed/${SAMPLE_ID}"
 mkdir -p "${OUTDIR}"
 
 source /global/scratch/projects/fc_wolflab/software/miniforge3/etc/profile.d/conda.sh
