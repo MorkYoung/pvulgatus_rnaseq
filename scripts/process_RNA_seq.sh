@@ -36,13 +36,13 @@ conda activate /global/scratch/projects/fc_wolflab/software/miniforge3/envs/mark
 TRIMMED=$(ls "${OUTDIR}"/*trimmed*.fq* | head -1)
 
 ### SortMeRNA
-sortmerna --ref "${SORTMERNA_REF}" \
-  --reads "${TRIMMED}" \
-  --workdir "${OUTDIR}" \
-  --other "${OUTDIR}/${SAMPLE_ID}.norRNA" \
-  --aligned "${OUTDIR}/${SAMPLE_ID}.rRNA" \
-  --threads 8 \
-  --fastx 
+# sortmerna --ref "${SORTMERNA_REF}" \
+#   --reads "${TRIMMED}" \
+#   --workdir "${OUTDIR}" \
+#   --other "${OUTDIR}/${SAMPLE_ID}.norRNA" \
+#   --aligned "${OUTDIR}/${SAMPLE_ID}.rRNA" \
+#   --threads 8 \
+#   --fastx 
 
 ### bowtie2
 bowtie2 --threads 8 --very-sensitive-local \
