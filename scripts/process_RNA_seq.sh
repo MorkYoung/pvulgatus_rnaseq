@@ -5,8 +5,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --time=03:00:00
-#SBATCH --array=1-22
+#SBATCH --time=04:00:00
+#SBATCH --array=1-1
 
 # SILVA 138 + Rfam v14.1 clustered rRNA refs (SortMeRNA v4.3.4 default db)
 SORTMERNA_REF="../refs/sortmerna/smr_v4.3_default_db.fasta"
@@ -30,19 +30,19 @@ source /global/scratch/projects/fc_wolflab/software/miniforge3/etc/profile.d/con
 conda activate /global/scratch/projects/fc_wolflab/software/miniforge3/envs/mark_rnaseq
 
 ### TrimGalore
-# trim_galore --cores 4 --quality 20 --length 20 \
-#   "${SAMPLE_RNA_SEQ_PATH}" -o "${OUTDIR}"
+trim_galore --cores 4 --quality 20 --length 20 \
+   "${SAMPLE_RNA_SEQ_PATH}" -o "${OUTDIR}"
 
 TRIMMED=$(ls "${OUTDIR}"/*trimmed*.fq* | head -1)
 
 ### SortMeRNA
-# sortmerna --ref "${SORTMERNA_REF}" \
-#   --reads "${TRIMMED}" \
-#   --workdir "${OUTDIR}" \
-#   --other "${OUTDIR}/${SAMPLE_ID}.norRNA" \
-#   --aligned "${OUTDIR}/${SAMPLE_ID}.rRNA" \
-#   --threads 8 \
-#   --fastx 
+sortmerna --ref "${SORTMERNA_REF}" \
+   --reads "${TRIMMED}" \
+   --workdir "${OUTDIR}" \
+   --other "${OUTDIR}/${SAMPLE_ID}.norRNA" \
+   --aligned "${OUTDIR}/${SAMPLE_ID}.rRNA" \
+   --threads 8 \
+   --fastx 
 
 ### bowtie2
 bowtie2 --threads 8 --very-sensitive-local \
@@ -55,6 +55,6 @@ samtools index "${OUTDIR}/${SAMPLE_ID}.mapped.bam"
 
 ### clean up 
 
-#gzip "${OUTDIR}/${SAMPLE_ID}.norRNA.fastq
+gzip "${OUTDIR}/${SAMPLE_ID}.norRNA.fastq
 rm "${OUTDIR}/${SAMPLE_ID}.rRNA.fq"
 rm $TRIMMED
