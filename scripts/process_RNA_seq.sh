@@ -30,16 +30,18 @@ source /global/scratch/projects/fc_wolflab/software/miniforge3/etc/profile.d/con
 conda activate /global/scratch/projects/fc_wolflab/software/miniforge3/envs/mark_rnaseq
 
 ### TrimGalore
-trim_galore --cores 4 --quality 20 --length 20 \
-  "${SAMPLE_RNA_SEQ_PATH}" -o "${OUTDIR}"
+# trim_galore --cores 4 --quality 20 --length 20 \
+#   "${SAMPLE_RNA_SEQ_PATH}" -o "${OUTDIR}"
+
 TRIMMED=$(ls "${OUTDIR}"/*trimmed*.fq* | head -1)
 
 ### SortMeRNA
 sortmerna --ref "${SORTMERNA_REF}" \
   --reads "${TRIMMED}" \
-  --other "${OUTDIR}/${SAMPLE_ID}.norRNA.fastq.gz" \
-  --aligned "${OUTDIR}/${SAMPLE_ID}.rrna.fastq.gz" \
-  --fastx --log
+  --other "${OUTDIR}/${SAMPLE_ID}.norRNA" \
+  --aligned "${OUTDIR}/${SAMPLE_ID}.rRNA" \
+  --threads 8 \
+  --fastx 
 
 ### bowtie2
 bowtie2 --threads 8 --very-sensitive-local \
@@ -52,6 +54,6 @@ samtools index "${OUTDIR}/${SAMPLE_ID}.mapped.bam"
 
 ### clean up 
 
-gzip "${OUTDIR}/${SAMPLE_ID}.norRNA.fastq.gz
-rm "${OUTDIR}/${SAMPLE_ID}.rrna.fastq.gz"
+gzip "${OUTDIR}/${SAMPLE_ID}.norRNA.fastq
+rm "${OUTDIR}/${SAMPLE_ID}.rRNA.fastq"
 rm $TRIMMED
