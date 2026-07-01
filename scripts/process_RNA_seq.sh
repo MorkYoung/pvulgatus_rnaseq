@@ -30,31 +30,36 @@ source /global/scratch/projects/fc_wolflab/software/miniforge3/etc/profile.d/con
 conda activate /global/scratch/projects/fc_wolflab/software/miniforge3/envs/mark_rnaseq
 
 ### TrimGalore
-trim_galore --cores 4 --quality 20 --length 20 \
-   "${SAMPLE_RNA_SEQ_PATH}" -o "${OUTDIR}"
+# trim_galore --cores 4 --quality 20 --length 20 \
+#    "${SAMPLE_RNA_SEQ_PATH}" -o "${OUTDIR}"
 
-TRIMMED=$(ls "${OUTDIR}"/*trimmed*.fq* | head -1)
+# TRIMMED=$(ls "${OUTDIR}"/*trimmed*.fq* | head -1)
 
-### SortMeRNA
-sortmerna --ref "${SORTMERNA_REF}" \
-   --reads "${TRIMMED}" \
-   --workdir "${OUTDIR}" \
-   --other "${OUTDIR}/${SAMPLE_ID}.norRNA" \
-   --aligned "${OUTDIR}/${SAMPLE_ID}.rRNA" \
-   --threads 8 \
-   --fastx 
+# ### SortMeRNA
+# sortmerna --ref "${SORTMERNA_REF}" \
+#    --reads "${TRIMMED}" \
+#    --workdir "${OUTDIR}" \
+#    --other "${OUTDIR}/${SAMPLE_ID}.norRNA" \
+#    --aligned "${OUTDIR}/${SAMPLE_ID}.rRNA" \
+#    --threads 8 \
+#    --fastx 
 
-### bowtie2
-bowtie2 --threads 8 --very-sensitive-local \
-  -x "${GENOME_FASTA%.fna}" \
-  -U "${OUTDIR}/${SAMPLE_ID}.norRNA.fq.gz" \
-  2> "${OUTDIR}/${SAMPLE_ID}.bowtie2.log" \
-  | samtools view -b -F 4 -F 256 -q 10 \
-  | samtools sort -@ 4 -o "${OUTDIR}/${SAMPLE_ID}.mapped.bam"
-samtools index "${OUTDIR}/${SAMPLE_ID}.mapped.bam"
+# ### bowtie2
+# bowtie2 --threads 8 --very-sensitive-local \
+#   -x "${GENOME_FASTA%.fna}" \
+#   -U "${OUTDIR}/${SAMPLE_ID}.norRNA.fq.gz" \
+#   2> "${OUTDIR}/${SAMPLE_ID}.bowtie2.log" \
+#   | samtools view -b -F 4 -F 256 -q 10 \
+#   | samtools sort -@ 4 -o "${OUTDIR}/${SAMPLE_ID}.mapped.bam"
+# samtools index "${OUTDIR}/${SAMPLE_ID}.mapped.bam"
 
-### clean up 
+# ### clean up 
 
-gzip "${OUTDIR}/${SAMPLE_ID}.norRNA.fastq
-rm "${OUTDIR}/${SAMPLE_ID}.rRNA.fq"
-rm $TRIMMED
+# gzip "${OUTDIR}/${SAMPLE_ID}.norRNA.fastq
+# rm "${OUTDIR}/${SAMPLE_ID}.rRNA.fq"
+# rm $TRIMMED
+
+
+### FADU
+fadu -M -g ../ref_genomes/prokka_${SAMPLE_GENOME_PREFIX}/${SAMPLE_GENOME_PREFIX}.gff \
+-b "${OUTDIR}/${SAMPLE_ID}.mapped.bam" -o "${OUTDIR} -f CDS -a ID
