@@ -6,6 +6,7 @@ __pycache__/
 refs/*
 !refs/*.fasta
 !refs/*map*
-
+!ref_genomes/prokka_CL09/CL09.gff
+!ref_genomes/prokka_ATCC8482/ATCC8482.gff
 # SortMeRNA rRNA databases (download refs/sortmerna/database.tar.gz from SortMeRNA v4.3.4 release)
 refs/sortmerna/
