@@ -38,6 +38,7 @@ TRIMMED=$(ls "${OUTDIR}"/*trimmed*.fq* | head -1)
 ### SortMeRNA
 sortmerna --ref "${SORTMERNA_REF}" \
   --reads "${TRIMMED}" \
+  --workdir "${OUTDIR}" \
   --other "${OUTDIR}/${SAMPLE_ID}.norRNA" \
   --aligned "${OUTDIR}/${SAMPLE_ID}.rRNA" \
   --threads 8 \
