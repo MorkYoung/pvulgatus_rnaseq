@@ -47,7 +47,7 @@ sortmerna --ref "${SORTMERNA_REF}" \
 ### bowtie2
 bowtie2 --threads 8 --very-sensitive-local \
   -x "${GENOME_FASTA%.fna}" \
-  -U "${OUTDIR}/${SAMPLE_ID}.norRNA.fastq.gz" \
+  -U "${OUTDIR}/${SAMPLE_ID}.norRNA.fq.gz" \
   2> "${OUTDIR}/${SAMPLE_ID}.bowtie2.log" \
   | samtools view -b -F 4 -F 256 -q 10 \
   | samtools sort -@ 4 -o "${OUTDIR}/${SAMPLE_ID}.mapped.bam"
@@ -55,6 +55,6 @@ samtools index "${OUTDIR}/${SAMPLE_ID}.mapped.bam"
 
 ### clean up 
 
-gzip "${OUTDIR}/${SAMPLE_ID}.norRNA.fastq
-rm "${OUTDIR}/${SAMPLE_ID}.rRNA.fastq"
+#gzip "${OUTDIR}/${SAMPLE_ID}.norRNA.fastq
+rm "${OUTDIR}/${SAMPLE_ID}.rRNA.fq"
 rm $TRIMMED
